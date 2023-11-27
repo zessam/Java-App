@@ -31,7 +31,7 @@
 
 ## System Architecture Diagram
 
-![Untitled](https://github.com/zessam/Java-App/assets/72177003/a2064941-23d2-4275-b238-ac5ba06412d0)
+![Screenshot 2023-11-28 005739](https://github.com/zessam/Java-App/assets/72177003/428aed21-97c1-4ecb-8657-fbacf6663242)
 
 ---
 
