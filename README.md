@@ -1,59 +1,80 @@
-# Java-App-Deployment
+# Java App Deployment on AWS
 
-## Tools
+## Overview
 
-- **Hypervisor:** VirtualBox
-- **Automation:** Vagrant
-- **CLI:** Bash
-- **IDE:** VSCode
+This README provides documentation for deploying a Java application on AWS using four EC2 instances with their respective security groups. The architecture includes separate instances for MySQL Database, Tomcat Server, RabbitMQ, and Memcached. The deployment leverages S3 for artifact storage, Auto Scaling Groups, Load Balancing, Route 53 for DNS management, and ACM for HTTPS traffic.
 
-## Services
+## Architecture
 
-- NGINX
-- TOMCAT
-- RABBITMQ
-- MEMCACHED
-- MYSQL
+### EC2 Instances:
 
-## Technologies
+1. **MySQL Database Instance**
+   - Purpose: Hosting the MySQL database for the Java application.
+   - Security Group: `mysql-security-group`
+  
+2. **Tomcat Server Instance**
+   - Purpose: Running the Java application on Tomcat.
+   - Security Group: `tomcat-security-group`
+  
+3. **RabbitMQ Instance**
+   - Purpose: Managing message queues for the application.
+   - Security Group: `rabbitmq-security-group`
+  
+4. **Memcached Instance**
+   - Purpose: Caching data for improved application performance.
+   - Security Group: `memcached-security-group`
 
-- Spring MVC
-- Spring Security
-- Spring Data JPA
-- Maven
-- JSP
-- Tomcat
-- MySQL
-- Memcached
-- RabbitMQ
+### AWS Services:
 
----
+- **S3 Bucket**
+  - Purpose: Storing artifacts for the Java application.
+  
+- **Auto Scaling Groups**
+  - Purpose: Automatically adjusting the number of EC2 instances based on traffic.
+  
+- **Load Balancing**
+  - Purpose: Distributing incoming application traffic across multiple EC2 instances.
+  
+- **Route 53**
+  - Purpose: Managing DNS for the application.
+  
+- **ACM (AWS Certificate Manager)**
+  - Purpose: Providing SSL/TLS certificates for secure HTTPS traffic.
 
-## Local Deployment with Vagrant
+## Deployment Steps
 
-![Screenshot 2023-11-28 005739](https://github.com/zessam/Java-App/assets/72177003/428aed21-97c1-4ecb-8657-fbacf6663242)
+1. **Artifact Retrieval:**
+   - Pull artifacts from the S3 bucket where the application artifacts are stored.
 
-### Manual Deployment
+2. **EC2 Instances Setup:**
+   - Launch four EC2 instances, one for each component, using the specified security groups.
 
-1. **Install Prerequisites:**
-   - VirtualBox: Download and install VirtualBox from [here](https://www.virtualbox.org/).
-   - Vagrant: Download and install Vagrant from [here](https://www.vagrantup.com/).
+3. **Configuration:**
+   - Configure the MySQL Database, Tomcat Server, RabbitMQ, and Memcached instances with the necessary settings.
 
-2. **Clone the Repository:**
-   ```bash
-   git clone https://github.com/your/repository.git
-   cd repository/vagrant/manual
-   vagrant up
+4. **Load Balancer Setup:**
+   - Create a load balancer to distribute incoming traffic across instances.
 
-### Automatic Deployment
+5. **Auto Scaling Group:**
+   - Set up Auto Scaling Groups for each type of instance to automatically scale based on demand.
 
-1. **Install Prerequisites:**
-   - VirtualBox: Download and install VirtualBox from [here](https://www.virtualbox.org/).
-   - Vagrant: Download and install Vagrant from [here](https://www.vagrantup.com/).
+6. **Route 53 Configuration:**
+   - Configure Route 53 to manage DNS for the application.
 
-2. **Clone the Repository:**
-   ```bash
-   git clone https://github.com/your/repository.git
-   cd repository/vagrant/automated
-   vagrant up
+7. **SSL/TLS Setup:**
+   - Use ACM to provision SSL/TLS certificates for secure HTTPS traffic.
+
+8. **Testing:**
+   - Ensure that the application is accessible via the assigned domain, and test the scalability and failover capabilities.
+
+## Additional Notes
+
+- **Security:**
+  - Regularly update security groups and access controls to maintain a secure environment.
+
+- **Monitoring:**
+  - Utilize AWS CloudWatch and other monitoring tools to track the performance and health of the infrastructure.
+
+- **Documentation:**
+  - Maintain up-to-date documentation for the deployment process, configurations, and any changes made.
 
